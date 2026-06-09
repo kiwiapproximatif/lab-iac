@@ -1,0 +1,8 @@
+- name: Configuration du dépot DNF de SaltStack
+  include_tasks: roles/salt-minion/tasks/redhat/install/dnf-conf.yml
+- name: Installer le paquet salt-minion
+  ansible.builtin.dnf:
+    name: salt-minion-3008.0
+    state: present
+    update_cache: yes
+  notify: Activer et démarrer le service salt-minion

@@ -1,0 +1,5 @@
+- name: Activer et démarrer le service salt-minion
+  ansible.builtin.service:
+    name: salt-minion
+    state: started
+    enabled: true

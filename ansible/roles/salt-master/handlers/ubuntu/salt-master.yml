@@ -1,0 +1,5 @@
+- name: Activer et démarrer le service salt-master
+  ansible.builtin.service:
+    name: salt-master
+    state: started
+    enabled: true

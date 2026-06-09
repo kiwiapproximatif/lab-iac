@@ -1,0 +1,9 @@
+- name: Installation du dépôt SaltProject
+  ansible.builtin.get_url:
+    url: https://github.com/saltstack/salt-install-guide/releases/latest/download/salt.repo
+    dest: /etc/yum.repos.d/salt.repo
+    mode: '0644'
+
+- name: Nettoyage des metadonnées du dépôt
+  ansible.builtin.dnf:
+    update_cache: true

@@ -1,0 +1,11 @@
+- hosts: _master
+  connection: local
+  become: true
+  roles:
+    - salt-master
+
+- hosts: _minion
+  connection: local
+  become: true
+  roles:
+    - salt-minion

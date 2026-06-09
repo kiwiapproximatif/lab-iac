@@ -1,0 +1,9 @@
+plugin: community.general.incus
+status: running
+
+keyed_groups:
+  - key: ansible_incus_expanded_config['user.role']
+
+ansible_common_vars:
+  ansible_user: ansible
+  ansible_ssh_private_key_file: "{{ saltstack_ssh_private_key_file }}"

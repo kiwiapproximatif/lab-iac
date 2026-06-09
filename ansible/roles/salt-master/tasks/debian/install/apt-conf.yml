@@ -1,0 +1,29 @@
+- name: S'assurer que le répertoire des clés APT existe
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+
+- name: Télécharger la clé publique de SaltProject
+  ansible.builtin.get_url:
+    url: https://packages.broadcom.com/artifactory/api/security/keypair/SaltProjectKey/public
+    dest: /etc/apt/keyrings/salt-archive-keyring.pgp
+    mode: '0644'
+
+- name: Télécharger le fichier source APT pour Salt
+  ansible.builtin.get_url:
+    url: https://github.com/saltstack/salt-install-guide/releases/latest/download/salt.sources
+    dest: /etc/apt/sources.list.d/salt.sources
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Configuration de Salt 3008 LTS
+  ansible.builtin.blockinfile:
+    dest: /etc/apt/preferences.d/salt-pin-1001
+    content: |
+      Package: salt-*
+      Pin: version 3008.*
+      Pin-Priority: 1001'
+    create: yes
+    state: present

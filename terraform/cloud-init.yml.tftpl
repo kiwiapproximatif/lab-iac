@@ -1,0 +1,24 @@
+#cloud-config
+
+bootcmd:
+  - until ping -c 1 8.8.8.8; do sleep 1; done
+
+package_update: true
+packages:
+  - openssh-server
+
+users:
+  - name: ansible
+    gecos: Ansible Automation User
+    groups: ${admin_group}
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    lock_passwd: false
+    passwd: "*"
+    ssh_authorized_keys:
+      - "${pub_key}"
+
+ssh_pwauth: false
+
+runcmd:
+  - systemctl enable --now sshd
