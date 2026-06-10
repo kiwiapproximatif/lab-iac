@@ -8,7 +8,7 @@ Installation du plugin `community.general` pour en partie utiliser le plugin `in
 ansible-galaxy collection install community.general --upgrade
 ```
 
-Ne pas oublier d'ajouter le dépôt `cloud-init` pour les images `incus` :
+Ajouter le dépôt `cloud-init` pour les images `incus` :
 ```bash
 incus remote add ubuntu https://cloud-images.ubuntu.com/releases --protocol=simplestreams --public
 ```

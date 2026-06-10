@@ -1,2 +1,2 @@
 - name: Charger le handler salt-master
-  include_tasks: salt-master.yml
+  ansible.builtin.import_tasks: salt-master.yml

@@ -1,5 +1,5 @@
 - name: Configuration du dépot APT de SaltStack
-  include_tasks: roles/salt-minion/tasks/debian/install/apt-conf.yml
+  include_tasks: "{{ role_path }}/tasks/debian/install/apt-conf.yml"
 - name: Installer le paquet salt-master
   ansible.builtin.apt:
     name: salt-master=3008.0

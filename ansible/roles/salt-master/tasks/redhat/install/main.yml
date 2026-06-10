@@ -1,7 +1,7 @@
 - name: Configuration du dépot DNF de SaltStack
-  include_tasks: roles/salt-minion/tasks/redhat/install/dnf-conf.yml
+  include_tasks: "{{ role_path }}/tasks/redhat/install/dnf-conf.yml"
 - name: Installer le paquet salt-master
-  ansible.builtin.apt:
+  ansible.builtin.dnf:
     name: salt-master-3008.0
     state: present
     update_cache: yes

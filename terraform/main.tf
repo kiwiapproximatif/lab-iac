@@ -17,7 +17,7 @@ locals {
     "master"  = { role = "master", image = "images:ubuntu/24.04/cloud", os_family = "debian" }
     "minion1" = { role = "minion", image = "images:ubuntu/24.04/cloud", os_family = "debian" }
     "minion2" = { role = "minion", image = "images:ubuntu/24.04/cloud", os_family = "debian" }
-    "minion3" = { role = "minion", image = "images:rockylinux/9/cloud", os_family = "redhat" }
+    #"minion3" = { role = "minion", image = "images:rockylinux/9/cloud", os_family = "redhat" }
   }
 }
 
@@ -34,9 +34,19 @@ resource "incus_instance" "nodes" {
     "limits.cpu"    = "2"
     "limits.memory" = "2GiB"
     "user.role"     = each.value.role
-    "user.user-data" = templatefile("${path.module}/cloud-init.yml.tftpl", {
+    "user.user-data" = templatefile("${path.module}/cloud-init.tftpl.yml", {
       admin_group = each.value.os_family == "debian" ? "sudo" : "wheel"
       pub_key = file("~/.ssh/id_ed25519.pub")
     })
   }
+}
+
+resource "local_file" "ansible_inventory" {
+  content = templatefile("${path.module}/templates/inventory.tpl", {
+    nodes = { for k, v in incus_instance.nodes : k => {
+      ip   = v.ipv4_address
+      role = v.config["user.role"]
+    }}
+  })
+  filename = "${path.module}/../ansible/inventory/hosts.yml"
 }

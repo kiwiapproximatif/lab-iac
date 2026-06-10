@@ -1,0 +1,16 @@
+- hosts: all
+  become: true
+  tasks:
+    - name: Affichage os_family
+      debug:
+        var: ansible_facts['os_family']
+
+- hosts: _master
+  become: true
+  roles:
+    - salt-master
+
+- hosts: _minion
+  become: true
+  roles:
+    - salt-minion

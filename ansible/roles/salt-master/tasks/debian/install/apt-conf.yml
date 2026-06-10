@@ -17,7 +17,7 @@
     owner: root
     group: root
     mode: '0644'
-
+    
 - name: Configuration de Salt 3008 LTS
   ansible.builtin.blockinfile:
     dest: /etc/apt/preferences.d/salt-pin-1001
